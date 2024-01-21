@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import Establishment, Comment
-from .utils import valid_user
 
 class EstablishmentSerializer(serializers.ModelSerializer):
     class Meta:

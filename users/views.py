@@ -7,6 +7,8 @@ from rest_framework.permissions import AllowAny
 from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 
 
 
@@ -45,3 +47,14 @@ class LoginView(APIView):
                 })
             return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+class getUserView(APIView):
+
+    def get(self, request, pk):
+        search_user = get_object_or_404(User, pk=pk)
+        serializer = UserSerializer(search_user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
